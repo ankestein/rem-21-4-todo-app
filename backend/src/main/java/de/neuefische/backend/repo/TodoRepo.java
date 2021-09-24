@@ -3,17 +3,14 @@ package de.neuefische.backend.repo;
 import de.neuefische.backend.Todo.Todo;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class TodoRepo {
-    private final List<Todo> todoList;
-
-    public TodoRepo(List<Todo> todoList) {
-        this.todoList = todoList;
-    }
+    List<Todo> todoList = new ArrayList<>();
 
     public List<Todo> getTodos() {
         return todoList;
