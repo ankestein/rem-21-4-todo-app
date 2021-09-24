@@ -24,8 +24,8 @@ public class TodoService {
         return todoRepo.addTodo(todo);
     }
 
-    public void updateTodo(String id, Todo todo) {
-        todoRepo.updateTodo(id, todo);
+    public Todo updateTodo(String id, Todo todo) {
+        return todoRepo.updateTodo(id, todo);
     }
 
     public void deleteTodo(String id) {
