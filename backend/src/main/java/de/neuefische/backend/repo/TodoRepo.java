@@ -73,4 +73,9 @@ public class TodoRepo {
         Optional<Todo> todo = getById(id);
         todoList.remove(todo.get());
     }
+
+
+    public void clearRepo() {
+        todoList.clear();
+    }
 }

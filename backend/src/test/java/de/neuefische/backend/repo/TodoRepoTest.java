@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TodoRepoTest {
 
     @Test
-    void getTodos() {
+    public void testGetTodos() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
@@ -32,7 +32,7 @@ class TodoRepoTest {
 
 
     @Test
-    void addTodo() {
+    public void testAddTodo() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         Todo todoToAdd = new Todo("2", "Write unit tests", "doing");
@@ -50,7 +50,7 @@ class TodoRepoTest {
 
 
     @Test
-    void getByIdExistingId() {
+    public void testGetByIdExistingId() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
@@ -68,7 +68,7 @@ class TodoRepoTest {
 
 
     @Test
-    void getByIdNonExistingId() {
+    public void testGetByIdNonExistingId() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
@@ -83,28 +83,8 @@ class TodoRepoTest {
     }
 
 
-
-
     @Test
-    void getById() {
-        // given
-        TodoRepo todoRepo = new TodoRepo();
-        todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
-        todoRepo.addTodo(new Todo("2", "Write integration tests", "todo"));
-        todoRepo.addTodo(new Todo("3", "Write methods", "done"));
-
-        // when
-        Todo actual = todoRepo.getById("2").get();
-
-        // then
-        assertEquals(new Todo("2", "Write integration tests", "todo"), actual);
-
-
-    }
-
-
-    @Test
-    void updateTodo() {
+    public void testUpdateTodo() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
@@ -127,9 +107,24 @@ class TodoRepoTest {
     }
 
 
-
-
     @Test
-    void deleteTodo() {
+    public void testDeleteTodo() {
+        // given
+        TodoRepo todoRepo = new TodoRepo();
+        todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
+        todoRepo.addTodo(new Todo("2", "Write integration tests", "todo"));
+        todoRepo.addTodo(new Todo("3", "Write methods", "done"));
+
+        // when
+        todoRepo.deleteTodo("2");
+
+        // then
+        List<Todo> expectedList = List.of(
+                new Todo("1", "Write unit tests", "doing"),
+                new Todo("3", "Write methods", "done")
+        );
+        assertEquals(expectedList, todoRepo.getTodos());
     }
+
+
 }
