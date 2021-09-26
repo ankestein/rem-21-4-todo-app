@@ -56,10 +56,10 @@ public class TodoRepo {
 
     public Todo updateTodo(String id, Todo todo) {
         if (getById(id).isEmpty()) {
-            throw new NullPointerException();
+            throw new NullPointerException("id " + id + " not found!");
         }
         if (!id.equals(todo.getId())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Provided id does not match id in 'todo' (" + id + " vs. " + todo.getId() + ")");
         }
         Collections.replaceAll(todoList, getById(id).get(), todo);
         return todo;
@@ -68,7 +68,7 @@ public class TodoRepo {
 
     public void deleteTodo(String id) {
         if (getById(id).isEmpty()) {
-            throw new NullPointerException();
+            throw new NullPointerException("id " + id + " not found!");
         }
         Optional<Todo> todo = getById(id);
         todoList.remove(todo.get());
