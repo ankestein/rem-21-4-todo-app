@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Todo {
     String id;
-    String task;
     String description;
+    String status;
 }
