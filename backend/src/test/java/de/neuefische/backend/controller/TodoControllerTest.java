@@ -38,7 +38,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void testGetTodoList() {
+    public void testGetTodos() {
         // given
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
         todoRepo.addTodo(new Todo("2", "Write integration tests", "todo"));
