@@ -27,10 +27,10 @@ class TodoControllerTest {
     private int port;
 
     @Autowired
-    TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate;
 
     @Autowired
-    TodoRepo todoRepo;
+    private TodoRepo todoRepo;
 
     @BeforeEach
     public void clearRepo() {
