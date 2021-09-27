@@ -6,7 +6,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Todo {
-    String id;
-    String description;
-    String status;
+    private String id;
+    private String description;
+    private String status;
+
+    // possible values of status in the frontend:
+    // OPEN, IN_PROGRESS, DONE
+    // in the frontend, only advance of status is possible!
 }

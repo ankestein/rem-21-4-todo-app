@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public class TodoRepo {
-    List<Todo> todoList = new ArrayList<>();
+    private final List<Todo> todoList = new ArrayList<>();
 
     public List<Todo> getTodos() {
         return todoList;
@@ -56,7 +56,7 @@ public class TodoRepo {
 
     public Todo updateTodo(String id, Todo todo) {
         if (getById(id).isEmpty()) {
-            throw new NullPointerException("id " + id + " not found!");
+            throw new IllegalArgumentException("Cannot update todo; id " + id + " not found!");
         }
         if (!id.equals(todo.getId())) {
             throw new IllegalArgumentException("Provided id does not match id in 'todo' (" + id + " vs. " + todo.getId() + ")");
@@ -68,7 +68,7 @@ public class TodoRepo {
 
     public void deleteTodo(String id) {
         if (getById(id).isEmpty()) {
-            throw new NullPointerException("id " + id + " not found!");
+            throw new IllegalArgumentException("Cannot delete todo; id " + id + " not found!");
         }
         Optional<Todo> todo = getById(id);
         todoList.remove(todo.get());

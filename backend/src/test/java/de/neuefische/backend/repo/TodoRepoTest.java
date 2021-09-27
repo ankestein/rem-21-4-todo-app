@@ -86,7 +86,7 @@ class TodoRepoTest {
 
 
     @Test
-    public void testUpdateTodo() {
+    public void testUpdateTodoAdvanceStatus() {
         // given
         TodoRepo todoRepo = new TodoRepo();
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
@@ -103,6 +103,30 @@ class TodoRepoTest {
                 new Todo("2", "Write integration tests", "todo"),
                 new Todo("3", "Write methods", "done")
                 );
+
+        assertEquals(expectedList, todoRepo.getTodos());
+        assertEquals(updatedTodo, actual);
+    }
+
+
+    @Test
+    public void testUpdateTodoRegressStatus() {
+        // given
+        TodoRepo todoRepo = new TodoRepo();
+        todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
+        todoRepo.addTodo(new Todo("2", "Write integration tests", "todo"));
+        todoRepo.addTodo(new Todo("3", "Write methods", "done"));
+
+        // when
+        Todo updatedTodo = new Todo("1", "Write unit tests", "todo");
+        Todo actual = todoRepo.updateTodo("1", updatedTodo);
+
+        // then
+        List<Todo> expectedList = List.of(
+                new Todo("1", "Write unit tests", "todo"),
+                new Todo("2", "Write integration tests", "todo"),
+                new Todo("3", "Write methods", "done")
+        );
 
         assertEquals(expectedList, todoRepo.getTodos());
         assertEquals(updatedTodo, actual);
@@ -136,10 +160,10 @@ class TodoRepoTest {
         todoRepo.addTodo(new Todo("1", "Write unit tests", "doing"));
 
         // when
-        Exception exception = assertThrows(NullPointerException.class, () -> todoRepo.deleteTodo("4"));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> todoRepo.deleteTodo("4"));
 
         // then
-        assertThat(exception.getMessage(), is("id 4 not found!"));
+        assertThat(exception.getMessage(), is("Cannot delete todo; id 4 not found!"));
     }
 
 
@@ -153,12 +177,12 @@ class TodoRepoTest {
         Todo todoToUpdate4 = new Todo("4", "Cook dinner", "todo");
 
         // when
-        Exception nullPointerException = assertThrows(NullPointerException.class, () -> todoRepo.updateTodo("4", todoToUpdate4));
-        Exception illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> todoRepo.updateTodo("2", todoToUpdate));
+        Exception illegalArgumentException1 = assertThrows(IllegalArgumentException.class, () -> todoRepo.updateTodo("4", todoToUpdate4));
+        Exception illegalArgumentException2 = assertThrows(IllegalArgumentException.class, () -> todoRepo.updateTodo("2", todoToUpdate));
 
         // then
-        assertThat(illegalArgumentException.getMessage(), is("Provided id does not match id in 'todo' (2 vs. 1)"));
-        assertThat(nullPointerException.getMessage(), is("id 4 not found!"));
+        assertThat(illegalArgumentException2.getMessage(), is("Provided id does not match id in 'todo' (2 vs. 1)"));
+        assertThat(illegalArgumentException1.getMessage(), is("Cannot update todo; id 4 not found!"));
 
     }
 
